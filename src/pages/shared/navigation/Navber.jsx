@@ -1,8 +1,19 @@
-import React from 'react';
+import React, { useState } from 'react';
 
 const Navber = () => {
+  const [hovered, setHovered] = useState(false);
+  const [isDarkMode, setIsDarkMode] = useState(false);
+
+  const toggleDarkMode = () => {
+    setIsDarkMode(!isDarkMode);
+  };
+ 
     return (
-        <div className="navbar bg-base-100">
+        <div  className={`navbar transition duration-300 ease-in-out ${
+          hovered ? 'z-auto static bg-opacity-100' : 'z-10 fixed bg-opacity-30'
+        }`}
+        onMouseEnter={() => setHovered(true)}
+        onMouseLeave={() => setHovered(false)} >
         <div className="navbar-start">
           <div className="dropdown">
             <div tabIndex={0} role="button" className="btn btn-ghost lg:hidden">
@@ -38,7 +49,12 @@ const Navber = () => {
           </ul>
         </div>
         <div className="navbar-end">
-          <a className="btn">Button</a>
+        <button
+        onClick={toggleDarkMode}
+        className={`bg-${isDarkMode ? 'white' : 'black'} text-${isDarkMode ? 'black' : 'white'} px-4 py-2 mt-4 rounded-md`}
+      >
+        {isDarkMode ? 'Light Mode' : 'Dark Mode'}
+      </button>
         </div>
       </div>
     );
